@@ -8,17 +8,20 @@ async function setupNodeEvents(on, config) {
   return config
 }
 module.exports = defineConfig({
+  
   retries: {
     runMode: 1
   },
-  projectId: "72iv5m",
+  projectId: "ohunp5",
   defaultCommandTimeout: 6000,
   e2e: {
     setupNodeEvents,
-    specPattern: ['cypress/integration/examples/BDD/*.{js,jsx,ts,tsx,feature}'],
+    specPattern: ['cypress/integration/features/distributer/*.{js,jsx,ts,tsx,feature}'],
     env: {
       url: 'https://rahulshettyacademy.com/angularpractice'
     }
   },
   
 });
+
+

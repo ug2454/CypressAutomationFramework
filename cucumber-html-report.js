@@ -5,7 +5,7 @@ report.generate({
 	reportPath: './cypress/cucumberReports/cucumber-htmlreports.html',
 	metadata:{
         browser: {
-            name: 'firefox',
+            name: 'Chrome',
             version: '60'
         },
         device: 'Local test machine',

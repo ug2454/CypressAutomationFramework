@@ -1,15 +1,11 @@
 const { Given, When, Then } = require("@badeball/cypress-cucumber-preprocessor");
-import HomePage from "../../integration/pageObjects/HomePage";
+import HomePage from "../../pageObjects/HomePage"
 const homePage = new HomePage()
 
-beforeEach(()=>{
-    cy.fixture('example').then(function(dataObject) {
-        this.dataObject = dataObject;
-    })
-})
+
 
 Given('I open ecommerce page', function () {
-    cy.visit(Cypress.env('url'))
+    homePage.getUrl()
 })
 
 When('I add items to cart', function (dataTable) {
@@ -19,23 +15,23 @@ When('I add items to cart', function (dataTable) {
     homePage.getShopButton().click()
 
     cy.selectProduct('Blackberry')
-    cy.get('#navbarResponsive > .navbar-nav > .nav-item > .nav-link').click()
+    homePage.getProductCheckoutButton().click()
 })
 
 
 When('Validate the total prices', function () {
-    cy.get("td[class='text-right']").find('h3 strong').should('contain.text', '50000')
+    homePage.getAmountText().find('h3 strong').should('contain.text', '50000')
 })
 
 
 Then('Select the country, Submit and verify Thank you message', function () {
-    cy.get("button[class='btn btn-success']").click()
-    cy.get('#country').type('India')
-    cy.wait(4000)
-    cy.get("div[class='suggestions'] ul li a").click()
-    cy.get("input[value='Purchase']").click()
+    homePage.getDropdown().click()
+    homePage.getCountry().type('India')
+    homePage.getWait()
+    homePage.getIndia().click()
+    homePage.getPurchaseButton().click()
 
-    cy.get('.alert').then((element) => {
+    homePage.getAlert().then((element) => {
         const message = element.text()
         expect(message.includes('Thank you')).to.be.true
     })
